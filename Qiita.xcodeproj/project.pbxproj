@@ -19,6 +19,9 @@
 		3D366C001A39E7F10036D2D7 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D366BFF1A39E7F10036D2D7 /* ItemsViewController.swift */; };
 		3D366C011A39E97D0036D2D7 /* Qiita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D366BBB1A39E5FB0036D2D7 /* Qiita.framework */; };
 		3D366C021A39E97D0036D2D7 /* Qiita.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D366BBB1A39E5FB0036D2D7 /* Qiita.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D53BCBB1A3B24DA000DB120 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D53BCBA1A3B24DA000DB120 /* Secrets.plist */; };
+		3D53BCBE1A3B35A9000DB120 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53BCBD1A3B35A9000DB120 /* User.swift */; };
+		3D53BCC01A3BD126000DB120 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53BCBF1A3BD126000DB120 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		3D366BF51A39E65D0036D2D7 /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		3D366BFD1A39E6A50036D2D7 /* Qiita.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qiita.swift; sourceTree = "<group>"; };
 		3D366BFF1A39E7F10036D2D7 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		3D53BCBA1A3B24DA000DB120 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		3D53BCBD1A3B35A9000DB120 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3D53BCBF1A3BD126000DB120 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 		3D366BBD1A39E5FB0036D2D7 /* Qiita */ = {
 			isa = PBXGroup;
 			children = (
+				3D53BCBC1A3B3599000DB120 /* Qiita */,
 				3D366BC01A39E5FB0036D2D7 /* Qiita.h */,
 				3D366BFD1A39E6A50036D2D7 /* Qiita.swift */,
 				3D366BBE1A39E5FB0036D2D7 /* Supporting Files */,
@@ -187,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				3D366BDE1A39E65C0036D2D7 /* Info.plist */,
+				3D53BCBA1A3B24DA000DB120 /* Secrets.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -206,6 +214,15 @@
 				3D366BF41A39E65D0036D2D7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D53BCBC1A3B3599000DB120 /* Qiita */ = {
+			isa = PBXGroup;
+			children = (
+				3D53BCBD1A3B35A9000DB120 /* User.swift */,
+				3D53BCBF1A3BD126000DB120 /* Item.swift */,
+			);
+			path = Qiita;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D53BCBB1A3B24DA000DB120 /* Secrets.plist in Resources */,
 				3D366BE51A39E65D0036D2D7 /* Main.storyboard in Resources */,
 				3D366BEA1A39E65D0036D2D7 /* LaunchScreen.xib in Resources */,
 				3D366BE71A39E65D0036D2D7 /* Images.xcassets in Resources */,
@@ -379,6 +397,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D53BCBE1A3B35A9000DB120 /* User.swift in Sources */,
+				3D53BCC01A3BD126000DB120 /* Item.swift in Sources */,
 				3D366BFE1A39E6A50036D2D7 /* Qiita.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +695,7 @@
 				3D366BD31A39E5FB0036D2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D366BD41A39E5FB0036D2D7 /* Build configuration list for PBXNativeTarget "QiitaTests" */ = {
 			isa = XCConfigurationList;
@@ -683,6 +704,7 @@
 				3D366BD61A39E5FB0036D2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D366BF71A39E65D0036D2D7 /* Build configuration list for PBXNativeTarget "Example" */ = {
 			isa = XCConfigurationList;
@@ -691,6 +713,7 @@
 				3D366BF91A39E65D0036D2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3D366BFA1A39E65D0036D2D7 /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -699,6 +722,7 @@
 				3D366BFC1A39E65D0036D2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
