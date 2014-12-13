@@ -14,6 +14,8 @@ class ItemsViewController: UITableViewController {
     var items: [Qiita.Item] = []
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let secretsURL = NSBundle.mainBundle().URLForResource("Secrets", withExtension: "plist")!
         let secrets = NSDictionary(contentsOfURL: secretsURL)!
         let accessToken = secrets["QiitaAccessToken"] as String!
@@ -27,7 +29,21 @@ class ItemsViewController: UITableViewController {
             }
         }
         request.onError { error in println(error) }
+        request.resume()
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let selectedPath = tableView.indexPathForSelectedRow()!
+        let item = items[selectedPath.row]
+        let itemViewController = segue.destinationViewController as ItemViewController
+        itemViewController.itemID = item.id
+    }
+    
+    // MARK: - UITableViewDataSource
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

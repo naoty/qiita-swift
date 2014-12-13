@@ -26,6 +26,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="h8b-dl-lFy" kind="show" identifier="ItemSegue" id="4nJ-Mf-KKP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -38,6 +41,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5wt-Fw-deW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1081" y="650"/>
+        </scene>
+        <!--Item View Controller-->
+        <scene sceneID="5Bx-Ok-RXQ">
+            <objects>
+                <viewController id="h8b-dl-lFy" customClass="ItemViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ta9-X4-MLy"/>
+                        <viewControllerLayoutGuide type="bottom" id="uGj-yc-7lQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jLc-zJ-769">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3u-VF-waM">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="k3u-VF-waM" secondAttribute="bottom" id="BQJ-yo-SZu"/>
+                            <constraint firstAttribute="trailing" secondItem="k3u-VF-waM" secondAttribute="trailing" id="GFD-xG-hFu"/>
+                            <constraint firstItem="k3u-VF-waM" firstAttribute="top" secondItem="ta9-X4-MLy" secondAttribute="bottom" constant="-64" id="S8F-iz-obO"/>
+                            <constraint firstItem="k3u-VF-waM" firstAttribute="leading" secondItem="jLc-zJ-769" secondAttribute="leading" id="Y7V-4v-zAS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="k3u-VF-waM" id="bbX-dy-jKT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jyv-g8-Ty6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1803" y="650"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dhh-eh-F7n">

@@ -8,12 +8,16 @@
 
 extension Qiita {
     public class Item {
+        public let id: String!
         public let body: String!
         public let title: String!
         public let url: NSURL!
         
         public init?(json: AnyObject) {
             if let jsonObject = json as? NSDictionary {
+                if let id = jsonObject["id"] as? String {
+                    self.id = id
+                }
                 if let body = jsonObject["body"] as? String {
                     self.body = body
                 }

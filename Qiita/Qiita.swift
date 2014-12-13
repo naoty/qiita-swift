@@ -19,23 +19,19 @@ public struct Qiita {
         public func getItems() -> Request<[Item]> {
             let request = Request<[Item]>()
             
-            
             let url = NSURL(string: "http://qiita.com/api/v2/items")!
             let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-                func onError(error: NSError) {
+                if error != nil {
                     request.reject(error)
                     return
-                }
-                
-                if error != nil {
-                    onError(error)
                 }
                 
                 var serializeError: NSErrorPointer = nil
                 let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
                 
                 if serializeError != nil {
-                    onError(serializeError.memory!)
+                    request.reject(error)
+                    return
                 }
                 
                 if let jsonObjects = json as? NSArray {
@@ -47,17 +43,49 @@ public struct Qiita {
                     }
                     request.resolve(items)
                 } else {
-                    onError(serializeError.memory!)
+                    request.reject(error)
+                    return
                 }
             })
-            task.resume()
             
+            request.task = task
+            return request
+        }
+        
+        public func getItem(id: String) -> Request<Item> {
+            let request = Request<Item>()
+            
+            let url = NSURL(string: "http://qiita.com/api/v2/items/\(id)")!
+            let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
+                if error != nil {
+                    request.reject(error)
+                    return
+                }
+                
+                var serializeError: NSErrorPointer = nil
+                let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
+                
+                if serializeError != nil {
+                    request.reject(error)
+                    return
+                }
+                
+                if let item = Item(json: json) {
+                    request.resolve(item)
+                } else {
+                    request.reject(error)
+                    return
+                }
+            })
+            
+            request.task = task
             return request
         }
     }
 }
 
 public class Request<T> {
+    var task: NSURLSessionDataTask?
     private var onCompleteHandler: ((T) -> Void)?
     private var onErrorHandler: ((NSError) -> Void)?
     
@@ -77,5 +105,9 @@ public class Request<T> {
     
     public func reject(error: NSError) {
         onErrorHandler?(error)
+    }
+    
+    public func resume() {
+        task?.resume()
     }
 }
