@@ -163,6 +163,23 @@ public struct Qiita {
             return request
         }
         
+        public func getItemStockers(itemID: String, parameters: [String:String] = [:]) -> Request<[User]> {
+            let request = Request<[User]>()
+            let url = buildURL("/items/\(itemID)/stockers", parameters: parameters)
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var users: [User] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let user = User(json: jsonObject) {
+                            users.append(user)
+                        }
+                    }
+                    request.resolve(users)
+                }
+            })
+            return request
+        }
+        
         // MARK: - Private methods
         
         private func buildURL(URLString: String, baseURLString: String? = nil, parameters: [String:String] = [:]) -> NSURL {

@@ -33,6 +33,7 @@ request.resume()
 * `Qiita.Client.getAuthorizedUser()`
 * `Qiita.Client.getFollowees(id: String, parameters: [String:String] = [:])`
 * `Qiita.Client.getFollowers(id: String, parameters: [String:String] = [:])`
+* `Qiita.Client.getItemStockers(itemID: String, parameters: [String:String] = [:])`
 
 ## Installation
 
