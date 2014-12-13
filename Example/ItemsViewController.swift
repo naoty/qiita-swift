@@ -21,7 +21,8 @@ class ItemsViewController: UITableViewController {
         let accessToken = secrets["QiitaAccessToken"] as String!
         let client = Qiita.Client(accessToken: accessToken)
         
-        let request = client.getItems()
+        let parameters = ["query": "user:naoty_k"]
+        let request = client.getItems(parameters: parameters)
         request.onComplete { [unowned self] items in
             self.items = items
             dispatch_async(dispatch_get_main_queue()) {

@@ -16,10 +16,11 @@ public struct Qiita {
             self.session = NSURLSession.sharedSession()
         }
         
-        public func getItems() -> Request<[Item]> {
+        public func getItems(parameters: [String:String] = [:]) -> Request<[Item]> {
             let request = Request<[Item]>()
             
-            let url = NSURL(string: "http://qiita.com/api/v2/items")!
+            let query = buildQuery(parameters)
+            let url = NSURL(string: "http://qiita.com/api/v2/items" + query)!
             let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
                 if error != nil {
                     request.reject(error)
@@ -52,10 +53,11 @@ public struct Qiita {
             return request
         }
         
-        public func getItem(id: String) -> Request<Item> {
+        public func getItem(id: String, parameters: [String:String] = [:]) -> Request<Item> {
             let request = Request<Item>()
             
-            let url = NSURL(string: "http://qiita.com/api/v2/items/\(id)")!
+            let query = buildQuery(parameters)
+            let url = NSURL(string: "http://qiita.com/api/v2/items/\(id)" + query)!
             let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
                 if error != nil {
                     request.reject(error)
@@ -80,6 +82,21 @@ public struct Qiita {
             
             request.task = task
             return request
+        }
+        
+        // MARK: - Private methods
+        
+        private func buildQuery(parameters: [String:String]) -> String {
+            if parameters.count == 0 {
+                return ""
+            }
+            
+            var components: [String] = []
+            for (key, value) in parameters {
+                let component = "=".join([key, value])
+                components.append(component)
+            }
+            return "?" + "&".join(components)
         }
     }
 }

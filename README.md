@@ -2,11 +2,13 @@
 
 Qiita API v2 client for Swift
 
-## Demo
+## Example
 
 ```swift
 let client = Qiita.Client(accessToken: "...")
-let request = client.getItems()
+
+let parameters = ["query": "user:naoty_k"]
+let request = client.getItems(parameters: parameters)
 request.onComplete { items in
   // ...
 }
