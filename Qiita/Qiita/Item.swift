@@ -16,6 +16,7 @@ extension Qiita {
         public let title: String?
         public let updatedAt: NSDate?
         public let url: NSURL?
+        public let user: User?
         
         private var dateFormatter: NSDateFormatter {
             let formatter = NSDateFormatter()
@@ -48,6 +49,9 @@ extension Qiita {
                 }
                 if let urlString = jsonObject["url"] as? String {
                     self.url = NSURL(string: urlString)!
+                }
+                if let userJSONObject: AnyObject = jsonObject["user"] {
+                    self.user = User(json: userJSONObject)
                 }
             } else {
                 return nil
