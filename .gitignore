@@ -28,4 +28,5 @@ DerivedData
 # Pods/
 
 # Access Token
+QiitaTests/Secrets.plist
 Example/Secrets.plist

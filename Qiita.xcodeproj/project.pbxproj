@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D00A8881A3C207000187281 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00A8871A3C207000187281 /* Request.swift */; };
+		3D00A88A1A3C2B2100187281 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D00A8891A3C2B2100187281 /* Secrets.plist */; };
 		3D366BC11A39E5FB0036D2D7 /* Qiita.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D366BC01A39E5FB0036D2D7 /* Qiita.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D366BC71A39E5FB0036D2D7 /* Qiita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D366BBB1A39E5FB0036D2D7 /* Qiita.framework */; };
 		3D366BCE1A39E5FB0036D2D7 /* QiitaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D366BCD1A39E5FB0036D2D7 /* QiitaTests.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		3D00A8871A3C207000187281 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		3D00A8891A3C2B2100187281 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		3D366BBB1A39E5FB0036D2D7 /* Qiita.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Qiita.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D366BBF1A39E5FB0036D2D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D366BC01A39E5FB0036D2D7 /* Qiita.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Qiita.h; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				3D366BCC1A39E5FB0036D2D7 /* Info.plist */,
+				3D00A8891A3C2B2100187281 /* Secrets.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D00A88A1A3C2B2100187281 /* Secrets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,6 +37,10 @@ public class Request<T>: NSObject {
         task?.resume()
     }
     
+    public func cancel() {
+        task?.cancel()
+    }
+    
     func setDataTaskWithSession(session: NSURLSession, url: NSURL, completionHandler: (AnyObject?) -> Void) {
         task = session.dataTaskWithURL(url, completionHandler: { [unowned self] data, response, error in
             // TODO: Handle errors such as 401 Unauthorized
