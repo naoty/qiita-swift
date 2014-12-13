@@ -27,6 +27,7 @@ request.resume()
 ### Users
 * `Qiita.Client.getUsers(parameters: [String:String] = [:])`: Get the collection of users.
 * `Qiita.Client.getUser(id: String, parameters: [String:String] = [:])`: Get a speficied user.
+* `Qiita.Client.getAuthorizedUser()`: Get an authorized user.
 
 ## Installation
 

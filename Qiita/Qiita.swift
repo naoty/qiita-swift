@@ -10,6 +10,7 @@ public struct Qiita {
     public class Client {
         let accessToken: String
         let session: NSURLSession
+        let baseURLString = "http://qiita.com/api/v2"
         
         public init(accessToken: String) {
             self.accessToken = accessToken
@@ -20,10 +21,7 @@ public struct Qiita {
         
         public func getItems(parameters: [String:String] = [:]) -> Request<[Item]> {
             let request = Request<[Item]>()
-            
-            let query = buildQuery(parameters)
-            let url = NSURL(string: "http://qiita.com/api/v2/items" + query)!
-            
+            let url = buildURL("/items", parameters: parameters)
             request.setDataTaskWithSession(session, url: url, completionHandler: { json in
                 if let jsonObjects = json as? NSArray {
                     var items: [Item] = []
@@ -40,10 +38,7 @@ public struct Qiita {
         
         public func getItem(id: String, parameters: [String:String] = [:]) -> Request<Item> {
             let request = Request<Item>()
-            
-            let query = buildQuery(parameters)
-            let url = NSURL(string: "http://qiita.com/api/v2/items/\(id)" + query)!
-            
+            let url = buildURL("/items/\(id)", parameters: parameters)
             request.setDataTaskWithSession(session, url: url, completionHandler: { json in
                 if let jsonObject: AnyObject = json {
                     if let item = Item(json: jsonObject) {
@@ -51,7 +46,6 @@ public struct Qiita {
                     }
                 }
             })
-            
             return request
         }
         
@@ -59,10 +53,7 @@ public struct Qiita {
         
         public func getUsers(parameters: [String:String] = [:]) -> Request<[User]> {
             let request = Request<[User]>()
-            
-            let query = buildQuery(parameters)
-            let url = NSURL(string: "http://qiita.com/api/v2/users" + query)!
-            
+            let url = buildURL("/users", parameters: parameters)
             request.setDataTaskWithSession(session, url: url, completionHandler: { json in
                 if let jsonObjects = json as? NSArray {
                     var users: [User] = []
@@ -74,16 +65,12 @@ public struct Qiita {
                     request.resolve(users)
                 }
             })
-            
             return request
         }
         
         public func getUser(id: String, parameters: [String:String] = [:]) -> Request<User> {
             let request = Request<User>()
-            
-            let query = buildQuery(parameters)
-            let url = NSURL(string: "http://qiita.com/api/v2/users/\(id)" + query)!
-            
+            let url = buildURL("/users/\(id)", parameters: parameters)
             request.setDataTaskWithSession(session, url: url, completionHandler: { json in
                 if let jsonObject: AnyObject = json {
                     if let user = User(json: jsonObject) {
@@ -91,11 +78,28 @@ public struct Qiita {
                     }
                 }
             })
-            
+            return request
+        }
+        
+        public func getAuthenticatedUser() -> Request<User> {
+            let request = Request<User>()
+            let url = buildURL("/authenticated_user")
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObject: AnyObject = json {
+                    if let user = User(json: jsonObject) {
+                        request.resolve(user)
+                    }
+                }
+            })
             return request
         }
         
         // MARK: - Private methods
+        
+        private func buildURL(URLString: String, baseURLString: String? = nil, parameters: [String:String] = [:]) -> NSURL {
+            let fullURLString = (baseURLString ?? self.baseURLString) + URLString + buildQuery(parameters)
+            return NSURL(string: fullURLString)!
+        }
         
         private func buildQuery(parameters: [String:String]) -> String {
             if parameters.count == 0 {
@@ -141,6 +145,8 @@ public class Request<T> {
     
     func setDataTaskWithSession(session: NSURLSession, url: NSURL, completionHandler: (AnyObject?) -> Void) {
         task = session.dataTaskWithURL(url, completionHandler: { [unowned self] data, response, error in
+            // TODO: Handle errors such as 401 Unauthorized
+            
             if error != nil {
                 self.reject(error)
                 return
