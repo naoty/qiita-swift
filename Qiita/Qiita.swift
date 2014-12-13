@@ -10,11 +10,12 @@ public struct Qiita {
     public class Client {
         let accessToken: String
         let session: NSURLSession
-        let baseURLString = "http://qiita.com/api/v2"
+        let baseURLString: String
         
-        public init(accessToken: String) {
+        public init(accessToken: String, baseURLString: String = "http://qiita.com/api/v2") {
             self.accessToken = accessToken
             self.session = NSURLSession.sharedSession()
+            self.baseURLString = baseURLString
         }
         
         // MARK: - Items
@@ -89,6 +90,40 @@ public struct Qiita {
                     if let user = User(json: jsonObject) {
                         request.resolve(user)
                     }
+                }
+            })
+            return request
+        }
+        
+        public func getFollowees(id: String, parameters: [String:String] = [:]) -> Request<[User]> {
+            let request = Request<[User]>()
+            let url = buildURL("/users/\(id)/followees", parameters: parameters)
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var users: [User] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let user = User(json: jsonObject) {
+                            users.append(user)
+                        }
+                    }
+                    request.resolve(users)
+                }
+            })
+            return request
+        }
+        
+        public func getFollowers(id: String, parameters: [String:String] = [:]) -> Request<[User]> {
+            let request = Request<[User]>()
+            let url = buildURL("/users/\(id)/followers", parameters: parameters)
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var users: [User] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let user = User(json: jsonObject) {
+                            users.append(user)
+                        }
+                    }
+                    request.resolve(users)
                 }
             })
             return request
