@@ -24,6 +24,8 @@ request.resume()
 ### Items
 * `Qiita.Client.getItems(parameters: [String:String] = [:])`
 * `Qiita.Client.getItem(id: String, parameters: [String:String] = [:])`
+* `Qiita.Client.getUserItems(userID: String, parameters: [String:String] = [:])`
+* `Qiita.Client.getUserStocks(userID: String, parameters: [String:String] = [:])`
 
 ### Users
 * `Qiita.Client.getUsers(parameters: [String:String] = [:])`

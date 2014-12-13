@@ -50,6 +50,40 @@ public struct Qiita {
             return request
         }
         
+        public func getUserItems(userID: String, parameters: [String:String] = [:]) -> Request<[Item]> {
+            let request = Request<[Item]>()
+            let url = buildURL("/users/\(userID)/items", parameters: parameters)
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var items: [Item] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let item = Item(json: jsonObject) {
+                            items.append(item)
+                        }
+                    }
+                    request.resolve(items)
+                }
+            })
+            return request
+        }
+        
+        public func getUserStocks(userID: String, parameters: [String:String] = [:]) -> Request<[Item]> {
+            let request = Request<[Item]>()
+            let url = buildURL("/users/\(userID)/stocks", parameters: parameters)
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var items: [Item] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let item = Item(json: jsonObject) {
+                            items.append(item)
+                        }
+                    }
+                    request.resolve(items)
+                }
+            })
+            return request
+        }
+        
         // MARK: - Users
         
         public func getUsers(parameters: [String:String] = [:]) -> Request<[User]> {
@@ -148,54 +182,5 @@ public struct Qiita {
             }
             return "?" + "&".join(components)
         }
-    }
-}
-
-public class Request<T> {
-    var task: NSURLSessionDataTask?
-    private var onCompleteHandler: ((T) -> Void)?
-    private var onErrorHandler: ((NSError) -> Void)?
-    
-    public func onComplete(handler: (T) -> Void) -> Request<T> {
-        onCompleteHandler = handler
-        return self
-    }
-    
-    public func onError(handler: (NSError) -> Void) -> Request<T> {
-        onErrorHandler = handler
-        return self
-    }
-    
-    public func resolve(value: T) {
-        onCompleteHandler?(value)
-    }
-    
-    public func reject(error: NSError) {
-        onErrorHandler?(error)
-    }
-    
-    public func resume() {
-        task?.resume()
-    }
-    
-    func setDataTaskWithSession(session: NSURLSession, url: NSURL, completionHandler: (AnyObject?) -> Void) {
-        task = session.dataTaskWithURL(url, completionHandler: { [unowned self] data, response, error in
-            // TODO: Handle errors such as 401 Unauthorized
-            
-            if error != nil {
-                self.reject(error)
-                return
-            }
-            
-            var serializeError: NSErrorPointer = nil
-            let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
-            
-            if serializeError != nil {
-                self.reject(serializeError.memory!)
-                return
-            }
-            
-            completionHandler(json)
-        })
     }
 }
