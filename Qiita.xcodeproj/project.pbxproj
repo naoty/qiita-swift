@@ -23,6 +23,7 @@
 		3D53BCBE1A3B35A9000DB120 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53BCBD1A3B35A9000DB120 /* User.swift */; };
 		3D53BCC01A3BD126000DB120 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53BCBF1A3BD126000DB120 /* Item.swift */; };
 		3D53BCC21A3BDBF2000DB120 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53BCC11A3BDBF2000DB120 /* ItemViewController.swift */; };
+		3D9213351A3C0290001FD011 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9213341A3C0290001FD011 /* UserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		3D53BCBD1A3B35A9000DB120 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D53BCBF1A3BD126000DB120 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3D53BCC11A3BDBF2000DB120 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		3D9213341A3C0290001FD011 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				3D366BDF1A39E65C0036D2D7 /* AppDelegate.swift */,
 				3D53BCC11A3BDBF2000DB120 /* ItemViewController.swift */,
 				3D366BFF1A39E7F10036D2D7 /* ItemsViewController.swift */,
+				3D9213341A3C0290001FD011 /* UserViewController.swift */,
 				3D366BE31A39E65C0036D2D7 /* Main.storyboard */,
 				3D366BE61A39E65D0036D2D7 /* Images.xcassets */,
 				3D366BE81A39E65D0036D2D7 /* LaunchScreen.xib */,
@@ -419,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D366BE01A39E65C0036D2D7 /* AppDelegate.swift in Sources */,
+				3D9213351A3C0290001FD011 /* UserViewController.swift in Sources */,
 				3D366C001A39E7F10036D2D7 /* ItemsViewController.swift in Sources */,
 				3D53BCC21A3BDBF2000DB120 /* ItemViewController.swift in Sources */,
 			);

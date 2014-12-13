@@ -8,14 +8,14 @@
 
 extension Qiita {
     public class Item {
-        public let body: String!
-        public let coediting: Bool!
-        public let createdAt: NSDate!
-        public let id: String!
-        public let isPrivate: Bool!
-        public let title: String!
-        public let updatedAt: NSDate!
-        public let url: NSURL!
+        public let body: String?
+        public let coediting: Bool?
+        public let createdAt: NSDate?
+        public let id: String?
+        public let isPrivate: Bool?
+        public let title: String?
+        public let updatedAt: NSDate?
+        public let url: NSURL?
         
         private var dateFormatter: NSDateFormatter {
             let formatter = NSDateFormatter()
@@ -49,6 +49,8 @@ extension Qiita {
                 if let urlString = jsonObject["url"] as? String {
                     self.url = NSURL(string: urlString)!
                 }
+            } else {
+                return nil
             }
         }
     }

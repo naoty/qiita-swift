@@ -16,25 +16,15 @@ public struct Qiita {
             self.session = NSURLSession.sharedSession()
         }
         
+        // MARK: - Items
+        
         public func getItems(parameters: [String:String] = [:]) -> Request<[Item]> {
             let request = Request<[Item]>()
             
             let query = buildQuery(parameters)
             let url = NSURL(string: "http://qiita.com/api/v2/items" + query)!
-            let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-                if error != nil {
-                    request.reject(error)
-                    return
-                }
-                
-                var serializeError: NSErrorPointer = nil
-                let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
-                
-                if serializeError != nil {
-                    request.reject(error)
-                    return
-                }
-                
+            
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
                 if let jsonObjects = json as? NSArray {
                     var items: [Item] = []
                     for jsonObject: AnyObject in jsonObjects {
@@ -43,13 +33,8 @@ public struct Qiita {
                         }
                     }
                     request.resolve(items)
-                } else {
-                    request.reject(error)
-                    return
                 }
             })
-            
-            request.task = task
             return request
         }
         
@@ -58,29 +43,55 @@ public struct Qiita {
             
             let query = buildQuery(parameters)
             let url = NSURL(string: "http://qiita.com/api/v2/items/\(id)" + query)!
-            let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-                if error != nil {
-                    request.reject(error)
-                    return
-                }
-                
-                var serializeError: NSErrorPointer = nil
-                let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
-                
-                if serializeError != nil {
-                    request.reject(error)
-                    return
-                }
-                
-                if let item = Item(json: json) {
-                    request.resolve(item)
-                } else {
-                    request.reject(error)
-                    return
+            
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObject: AnyObject = json {
+                    if let item = Item(json: jsonObject) {
+                        request.resolve(item)
+                    }
                 }
             })
             
-            request.task = task
+            return request
+        }
+        
+        // MARK: - Users
+        
+        public func getUsers(parameters: [String:String] = [:]) -> Request<[User]> {
+            let request = Request<[User]>()
+            
+            let query = buildQuery(parameters)
+            let url = NSURL(string: "http://qiita.com/api/v2/users" + query)!
+            
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObjects = json as? NSArray {
+                    var users: [User] = []
+                    for jsonObject: AnyObject in jsonObjects {
+                        if let user = User(json: jsonObject) {
+                            users.append(user)
+                        }
+                    }
+                    request.resolve(users)
+                }
+            })
+            
+            return request
+        }
+        
+        public func getUser(id: String, parameters: [String:String] = [:]) -> Request<User> {
+            let request = Request<User>()
+            
+            let query = buildQuery(parameters)
+            let url = NSURL(string: "http://qiita.com/api/v2/users/\(id)" + query)!
+            
+            request.setDataTaskWithSession(session, url: url, completionHandler: { json in
+                if let jsonObject: AnyObject = json {
+                    if let user = User(json: jsonObject) {
+                        request.resolve(user)
+                    }
+                }
+            })
+            
             return request
         }
         
@@ -126,5 +137,24 @@ public class Request<T> {
     
     public func resume() {
         task?.resume()
+    }
+    
+    func setDataTaskWithSession(session: NSURLSession, url: NSURL, completionHandler: (AnyObject?) -> Void) {
+        task = session.dataTaskWithURL(url, completionHandler: { [unowned self] data, response, error in
+            if error != nil {
+                self.reject(error)
+                return
+            }
+            
+            var serializeError: NSErrorPointer = nil
+            let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: serializeError)!
+            
+            if serializeError != nil {
+                self.reject(serializeError.memory!)
+                return
+            }
+            
+            completionHandler(json)
+        })
     }
 }
