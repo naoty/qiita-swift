@@ -20,7 +20,13 @@ request.resume()
 
 ## Usage
 
-TODO
+### Items
+* `Qiita.Client.getItems(parameters: [String:String] = [:])`: Get the collection of items.
+* `Qiita.Client.getItem(id: String, parameters: [String:String] = [:])`: Get a speficied item.
+
+### Users
+* `Qiita.Client.getUsers(parameters: [String:String] = [:])`: Get the collection of users.
+* `Qiita.Client.getUser(id: String, parameters: [String:String] = [:])`: Get a speficied user.
 
 ## Installation
 
